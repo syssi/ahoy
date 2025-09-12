@@ -235,13 +235,13 @@ class PubMqtt {
             else
                 snprintf(mTopic.data(), mTopic.size(), "%s", subTopic);
 
-            if(!mCfgMqtt->enableRetain && String(mTopic.data()) != String(mLwtTopic.data()))
+            if(!mCfgMqtt->enableRetain)
                 retained = false;
 
             // Home Assistant requires retained discovery messages
             if(strncmp(subTopic, MQTT_DISCOVERY_PREFIX, strlen(MQTT_DISCOVERY_PREFIX)) == 0)
                 retained = true;
-                
+
             // LWT messages should always be retained
             if(strcmp(mTopic.data(), mLwtTopic.data()) == 0)
                 retained = true;
